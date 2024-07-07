@@ -146,7 +146,7 @@
                                     title: 'Success!',
                                     text: response.message,
                                     class_name: 'gritter-success',
-                                    time: 1000,
+                                    time: 5000,
                                 });
                                 location.reload();
                             } else {
@@ -154,7 +154,7 @@
                                     title: 'Warning!',
                                     text: response.message,
                                     class_name: 'gritter-warning',
-                                    time: 1000,
+                                    time: 5000,
                                 });
                             }
                         }).fail(function(response) {
@@ -165,7 +165,7 @@
                                 text: response.message ? response.message :
                                     'Terdapat kesalahan pada sistem!',
                                 class_name: 'gritter-error',
-                                time: 1000,
+                                time: 5000,
                             });
                         })
                     }

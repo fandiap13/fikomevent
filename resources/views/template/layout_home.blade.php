@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 <head>
@@ -52,46 +48,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="nav-item">
                             <a href="{{ url('/events') }}" class="nav-link">Events</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/my-events') }}" class="nav-link">Event Dikuti</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Tentang Kami</a>
-                        </li>
-                    </ul>
 
-                    <!-- SEARCH FORM -->
-                    <form class="form-inline ml-0 ml-md-3">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-navbar" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        @if (Auth::user())
+                            <li class="nav-item">
+                                <a href="{{ url('/my-events') }}" class="nav-link">Event Dikuti</a>
+                            </li>
+                        @endif
+                    </ul>
                 </div>
 
-                @if (Auth::user())
-                    <!-- Right navbar links -->
-                    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                <!-- Right navbar links -->
+                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                    @if (Auth::user())
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-user mr-2"></i>
                                 {{ Auth::user()->nama }}</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="{{ url('/profil') }}" class="dropdown-item"><i
-                                            class="fa fa-user-edit"></i> Profil</a>
-                                </li>
+                                @if (Auth::user()->role == 'admin')
+                                    <li><a href="{{ url('admin/dashboard') }}" class="dropdown-item"><i
+                                                class="fas fa-tachometer-alt"></i> Dashboard</a>
+                                    </li>
+                                @else
+                                    <li><a href="{{ url('/profil') }}" class="dropdown-item"><i
+                                                class="fa fa-user-edit"></i> Profil</a>
+                                    </li>
+                                @endif
                                 <li><a href="#" onclick="logout()" class="dropdown-item"><i
                                             class="fa fa-sign-out-alt"></i>
                                         LogOut</a></li>
                             </ul>
                         </li>
-                    </ul>
-                @endif
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ url('auth/login') }}" class="btn btn-primary"><i
+                                    class="fas fa-sign-in-alt mr-2"></i>
+                                Login</a>
+                        </li>
+                    @endif
+                </ul>
             </div>
         </nav>
         <!-- /.navbar -->

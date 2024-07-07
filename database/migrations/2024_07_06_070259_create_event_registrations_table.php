@@ -20,8 +20,8 @@ class CreateEventRegistrationsTable extends Migration
             $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('restrict');
         });
     }
 

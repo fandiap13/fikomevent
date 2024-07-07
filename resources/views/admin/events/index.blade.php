@@ -65,7 +65,7 @@
                                 <tbody>
                                     @if (count($data) == 0)
                                         <tr>
-                                            <td colspan="8" class="text-center">Data kosong...</td>
+                                            <td colspan="9" class="text-center">Data kosong...</td>
                                         </tr>
                                     @endif
 
@@ -97,7 +97,7 @@
                                             <td class="text-center">{!! $row->status_event == 'aktif'
                                                 ? '<span class="badge badge-success">Aktif</span>'
                                                 : '<span class="badge badge-danger">Tidak aktif</span>' !!}</td>
-                                            <td class="text-center">{{ count($row->pendaftar) }}</td>
+                                            <td class="text-center">{{ count($row->pendaftar) }} orang</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
                                                     <a href="{{ url('admin/events/' . $row->id . '/edit') }}"
@@ -164,7 +164,7 @@
                                     title: 'Success!',
                                     text: response.message,
                                     class_name: 'gritter-success',
-                                    time: 1000,
+                                    time: 5000,
                                 });
                                 location.reload();
                             } else {
@@ -172,7 +172,7 @@
                                     title: 'Warning!',
                                     text: response.message,
                                     class_name: 'gritter-warning',
-                                    time: 1000,
+                                    time: 5000,
                                 });
                             }
                         }).fail(function(response) {
@@ -183,7 +183,7 @@
                                 text: response.message ? response.message :
                                     'Terdapat kesalahan pada sistem!',
                                 class_name: 'gritter-error',
-                                time: 1000,
+                                time: 5000,
                             });
                         })
                     }

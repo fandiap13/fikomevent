@@ -36,9 +36,12 @@
 
                             <div class="card-tools">
                                 <ul class="nav nav-pills ml-auto">
-                                    <a class="btn btn-default" href="{{ route('admin.events.index') }}"><i
-                                            class="fa fa-undo"></i></a>
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                                    <li class="nav-item">
+
+                                        <a class="btn btn-default" href="{{ route('admin.events.index') }}"><i
+                                                class="fa fa-undo"></i></a>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

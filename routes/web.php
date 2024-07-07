@@ -20,9 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/detailevent/{id}', [HomeController::class, 'detailevent']);
-Route::get('/pendaftaran/{id}', [HomeController::class, 'pendaftaran'])->middleware('role:pendaftar,admin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/pendaftaran/{id}', [HomeController::class, 'pendaftaran'])->middleware('role:pendaftar,admin');
+Route::get('/my-events', [HomeController::class, 'my_events'])->middleware('role:pendaftar,admin');
+Route::get('/detail-pendaftaran-event/{id}', [HomeController::class, 'detail_pendaftaran_event'])->middleware('role:pendaftar,admin');
+Route::post('/simpan-pendaftaran', [HomeController::class, 'simpan_pendaftaran'])->middleware('role:pendaftar,admin');
 
 Route::prefix('auth')->as('auth.')->middleware('guest')->group(function () {
     Route::get('login', [AuthController::class, 'index'])->name('login');
@@ -31,10 +36,12 @@ Route::prefix('auth')->as('auth.')->middleware('guest')->group(function () {
     Route::post('register-process', [AuthController::class, 'process_register']);
 });
 
-
 Route::prefix('admin')->as('admin.')->middleware('role:admin')->group(function () {
     Route::resource('dashboard', DashboardController::class);
+
     Route::resource('events', EventsController::class);
+    Route::get('/events/detailpendaftaranevent/{id}', [EventsController::class, 'detailpendaftaranevent'])->name('users.detailpendaftaranevent');
+    Route::post('/events/simpanstatuspendaftaran', [EventsController::class, 'simpanstatuspendaftaran'])->name('users.simpanstatuspendaftaran');
 
     Route::get('/users/admin', [UsersController::class, 'admin'])->name('users.admin');
     Route::get('/users/pendaftar', [UsersController::class, 'pendaftar'])->name('users.pendaftar');

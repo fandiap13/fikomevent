@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\EventRegistrations;
 use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -188,5 +189,34 @@ class EventsController extends Controller
             'status'     => true,
             'message' => 'Success delete event'
         ], 200);
+    }
+
+    public function detailpendaftaranevent($id)
+    {
+        $data = EventRegistrations::findOrFail($id);
+        if ($data->bukti_pembayaran == null || $data->bukti_pembayaran == "") {
+            $data['bukti_pembayaran'] = asset('assets/img/no-image.png');
+        } else {
+            $data['bukti_pembayaran'] = Storage::exists('public/' . $data->bukti_pembayaran)
+                ? asset('storage/' . $data->bukti_pembayaran)
+                : asset('assets/img/no-image.png');
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $data,
+        ], 200);
+    }
+
+    public function simpanstatuspendaftaran(Request $request)
+    {
+        $id = $request->id;
+        $acc = $request->acc;
+
+        $registrasiEvent = EventRegistrations::findOrFail($id);
+        $registrasiEvent->acc = intval($acc);
+        $registrasiEvent->save();
+
+        return redirect()->back()->with('status', 'success#Status berhasil diperbarui.');
     }
 }

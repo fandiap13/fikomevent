@@ -8,8 +8,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    {{-- <li class="breadcrumb-item active"><a href="{{ url('/') }}">Beranda</a></li> --}}
-                    {{-- <li class="breadcrumb-item active">Top Navigation</li> --}}
+                    <li class="breadcrumb-item active"><a href="{{ url('/') }}">Beranda</a></li>
+                    <li class="breadcrumb-item active">{{ $title }}</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -17,30 +17,48 @@
 @endsection
 
 @section('main')
-    <div class="row justify-content-center">
-        @foreach ($data as $row)
-            @php
-                if ($row->gambar == '') {
-                    $row['gambar'] = 'assets/img/no-image.png';
-                } else {
-                    $row['gambar'] = Storage::exists('public/' . $row->gambar)
-                        ? 'storage/' . $row->gambar
-                        : 'assets/img/no-image.png';
-                }
-            @endphp
-            <div class="col-lg-3">
-                <div class="card" style="width: 100%;">
-                    <img class="card-img-top" style="height: 250px; object-fit: cover;" src="{{ asset($row->gambar) }}"
-                        alt="Poster">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">{{ $row->judul }}</h5>
-                        <p class="card-text"></p>
-                        <a href="#" onclick="showDetail('{{ $row->id }}')" class="btn btn-block btn-success"><i
-                                class="fa fa-search"></i> Lihat Detail</a>
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="" method="get">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari event..." value="{{ $search }}"
+                        name="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
+            </form>
+
+            <div class="row justify-content-center mt-3">
+                @foreach ($data as $row)
+                    @php
+                        if ($row->gambar == '') {
+                            $row['gambar'] = 'assets/img/no-image.png';
+                        } else {
+                            $row['gambar'] = Storage::exists('public/' . $row->gambar)
+                                ? 'storage/' . $row->gambar
+                                : 'assets/img/no-image.png';
+                        }
+                    @endphp
+                    <div class="col-lg-3">
+                        <div class="card" style="width: 100%;">
+                            <img class="card-img-top" style="height: 250px; object-fit: cover;"
+                                src="{{ asset($row->gambar) }}" alt="Poster">
+                            <div class="card-body">
+                                <h5 class="card-title font-weight-bold">{{ $row->judul }}</h5>
+                                <p class="card-text"></p>
+                                <a href="#" onclick="showDetail('{{ $row->id }}')"
+                                    class="btn btn-block btn-success"><i class="fa fa-search"></i> Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
+
+        <div class="col-lg-12 d-flex justify-content-center">
+            {{ $data->links() }}
+        </div>
     </div>
     <!-- /.row -->
 

@@ -23,9 +23,9 @@
 
 @section('main')
     <div class="row">
-        @csrf
         <div class="col-md-12">
-            <form action="{{ url('simpan-pendaftaran') }}" method="POST" id="form">
+            <form action="{{ url('simpan-pendaftaran') }}" method="POST" id="form" enctype="multipart/form-data">
+                @csrf
                 <input type="hidden" id="event_id" name="event_id" value="{{ $event->id }}">
                 <div class="card card-primary card-outline">
                     <div class="card-header">

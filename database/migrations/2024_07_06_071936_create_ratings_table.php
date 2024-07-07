@@ -22,9 +22,9 @@ class CreateRatingsTable extends Migration
             $table->text('comment')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->foreign('event_registration_id')->references('id')->on('event_registrations')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('restrict');
+            $table->foreign('event_registration_id')->references('id')->on('event_registrations')->onDelete('restrict');
         });
     }
 

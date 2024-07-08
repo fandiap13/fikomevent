@@ -65,7 +65,9 @@
                                             <td>{{ $row->nama }}</td>
                                             <td>{{ $row->instansi }}</td>
                                             <td>{{ date('d F Y', strtotime($row->created_at)) }}</td>
-                                            <td class="text-center">{{ count($row->events) }}</td>
+                                            <td class="text-center"><a class="font-weight-bold"
+                                                    href="{{ url('admin/users/' . $row->id) }}">{{ count($row->events) }}</a>
+                                            </td>
                                             <td class="text-center">
                                                 {{-- @if ($row->role == 'admin') --}}
                                                 <div class="btn-group">
@@ -74,8 +76,6 @@
                                                     <button onclick="destroy('{{ $row->id }}')"
                                                         class="btn btn-sm btn-danger"><i
                                                             class="fa fa-trash-alt"></i></button>
-                                                    <a href="{{ url('admin/users/' . $row->id) }}"
-                                                        class="btn btn-sm btn-default"><i class="fa fa-search"></i></a>
                                                 </div>
                                                 {{-- @else
                                                     <div class="btn-group">

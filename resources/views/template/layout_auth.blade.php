@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FIKOM EVENTS | {{ $title }}</title>
 
-    <link rel="icon" href="data:;base64,=">
+    <link rel="icon" href="https://fikom.udb.ac.id/themes/fakultas-udb/assets/img/logo.png">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

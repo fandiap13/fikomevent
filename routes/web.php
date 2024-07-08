@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events', [HomeController::class, 'events'])->name('events');
+Route::get('/tentang-kami', [HomeController::class, 'tentang_kami'])->name('tentang_kami');
 Route::get('/detailevent/{id}', [HomeController::class, 'detailevent']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -34,6 +35,8 @@ Route::prefix('auth')->as('auth.')->middleware('guest')->group(function () {
     Route::get('register', [AuthController::class, 'register'])->name('register');
     Route::post('login-process', [AuthController::class, 'process_login']);
     Route::post('register-process', [AuthController::class, 'process_register']);
+    Route::get('lupa-password', [AuthController::class, 'lupa_password'])->name('lupa-password');
+    Route::post('lupa-password-process', [AuthController::class, 'process_lupa_password']);
 });
 
 Route::prefix('admin')->as('admin.')->middleware('role:admin')->group(function () {
@@ -42,6 +45,9 @@ Route::prefix('admin')->as('admin.')->middleware('role:admin')->group(function (
     Route::resource('events', EventsController::class);
     Route::get('/events/detailpendaftaranevent/{id}', [EventsController::class, 'detailpendaftaranevent'])->name('users.detailpendaftaranevent');
     Route::post('/events/simpanstatuspendaftaran', [EventsController::class, 'simpanstatuspendaftaran'])->name('users.simpanstatuspendaftaran');
+    Route::post('/events/simpansemuastatuspendaftaran', [EventsController::class, 'simpansemuastatuspendaftaran'])->name('users.simpansemuastatuspendaftaran');
+    Route::post('/events/simpandefaultsertif', [EventsController::class, 'simpandefaultsertif'])->name('users.simpandefaultsertif');
+    Route::get('/events/exportallparticipants', [EventsController::class, 'exportallparticipants'])->name('users.exportallparticipants');
 
     Route::get('/users/admin', [UsersController::class, 'admin'])->name('users.admin');
     Route::get('/users/pendaftar', [UsersController::class, 'pendaftar'])->name('users.pendaftar');

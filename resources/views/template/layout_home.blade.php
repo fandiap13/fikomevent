@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FIKOM EVENT | {{ $title }}</title>
-    <link rel="icon" href="data:;base64,=">
+    <link rel="icon" href="https://fikom.udb.ac.id/themes/fakultas-udb/assets/img/logo.png">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,10 +25,10 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+        <nav class="main-header navbar navbar-expand-md navbar-dark">
             <div class="container">
                 <a href="{{ asset('adminlte') }}/index3.html" class="navbar-brand">
-                    <img src="{{ asset('adminlte') }}/dist/img/AdminLTELogo.png" alt="Logo"
+                    <img src="https://fikom.udb.ac.id/themes/fakultas-udb/assets/img/logo.png" alt="Logo"
                         class="brand-image img-circle">
                     <span class="brand-text font-weight-light">FIKOM EVENT</span>
                 </a>
@@ -48,12 +48,9 @@
                         <li class="nav-item">
                             <a href="{{ url('/events') }}" class="nav-link">Events</a>
                         </li>
-
-                        @if (Auth::user())
-                            <li class="nav-item">
-                                <a href="{{ url('/my-events') }}" class="nav-link">Event Dikuti</a>
-                            </li>
-                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('/tentang-kami') }}" class="nav-link">Tentang Kami</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -74,6 +71,10 @@
                                                 class="fa fa-user-edit"></i> Profil</a>
                                     </li>
                                 @endif
+                                <li>
+                                    <a href="{{ url('/my-events') }}" class="dropdown-item"><i
+                                            class="fa fa-calendar"></i> Event Yang Dikuti</a>
+                                </li>
                                 <li><a href="#" onclick="logout()" class="dropdown-item"><i
                                             class="fa fa-sign-out-alt"></i>
                                         LogOut</a></li>
@@ -116,13 +117,10 @@
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+        <footer class="main-footer bg-dark">
+            <strong>Copyright &copy; {{ date('Y') }} <a href="https://fikom.udb.ac.id/" target="_blank">FIKOM
+                    UDB</a>.</strong> All
+            rights
             reserved.
         </footer>
     </div>

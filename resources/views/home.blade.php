@@ -17,30 +17,36 @@
 @endsection
 
 @section('main')
-    <div class="row justify-content-center">
-        @foreach ($data as $row)
-            @php
-                if ($row->gambar == '') {
-                    $row['gambar'] = 'assets/img/no-image.png';
-                } else {
-                    $row['gambar'] = Storage::exists('public/' . $row->gambar)
-                        ? 'storage/' . $row->gambar
-                        : 'assets/img/no-image.png';
-                }
-            @endphp
-            <div class="col-lg-3">
-                <div class="card" style="width: 100%;">
-                    <img class="card-img-top" style="height: 250px; object-fit: cover;" src="{{ asset($row->gambar) }}"
-                        alt="Poster">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">{{ $row->judul }}</h5>
-                        <p class="card-text"></p>
-                        <a href="#" onclick="showDetail('{{ $row->id }}')" class="btn btn-block btn-success"><i
-                                class="fa fa-search"></i> Lihat Detail</a>
+    <div class="row">
+        @if ($data->isEmpty())
+            <div class="col-12 text-center">
+                <h5>Event belum ada...</h5>
+            </div>
+        @else
+            @foreach ($data as $row)
+                @php
+                    if ($row->gambar == '') {
+                        $row['gambar'] = 'assets/img/no-image.png';
+                    } else {
+                        $row['gambar'] = Storage::exists('public/' . $row->gambar)
+                            ? 'storage/' . $row->gambar
+                            : 'assets/img/no-image.png';
+                    }
+                @endphp
+                <div class="col-lg-3">
+                    <div class="card" style="width: 100%;">
+                        <img class="card-img-top" style="height: 250px; object-fit: cover;" src="{{ asset($row->gambar) }}"
+                            alt="Poster">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">{{ $row->judul }}</h5>
+                            <p class="card-text"></p>
+                            <a href="#" onclick="showDetail('{{ $row->id }}')"
+                                class="btn btn-block btn-success"><i class="fa fa-search"></i> Lihat Detail</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
     <!-- /.row -->
 
@@ -151,7 +157,7 @@
                     $('#jml_daftar').text(event.jml_daftar);
 
                     if (event.status_daftar) {
-                        $('.show-button-event').html(`<a href="{{ url('detail-pendaftaran-event') }}/${id}" class="btn btn-info btn-block link-pendaftaran"><i
+                        $('.show-button-event').html(`<a href="{{ url('detail-pendaftaran-event') }}/${event.id_pendaftaran}" class="btn btn-info btn-block link-pendaftaran"><i
                                     class="fa fa-check-circle"></i>
                                 Anda Sudah Mendaftar...</a>`);
                     } else {

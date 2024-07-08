@@ -1,3 +1,8 @@
+@php
+    $secondSegment = Request::segment(2);
+    $thridSegment = Request::segment(3);
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ADMIN | {{ $title }}</title>
 
-    <link rel="icon" href="data:;base64,=">
+    <link rel="icon" href="https://fikom.udb.ac.id/themes/fakultas-udb/assets/img/logo.png">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -42,8 +47,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href=3.html" class="brand-link">
-                <img src="{{ asset('adminlte') }}/dist/img/AdminLTELogo.png" alt="Logo"
+            <a href="" class="brand-link">
+                <img src="https://fikom.udb.ac.id/themes/fakultas-udb/assets/img/logo.png" alt="Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">FIKOM EVENT</span>
             </a>
@@ -65,7 +70,8 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ url('admin/dashboard') }}" class="nav-link">
+                            <a href="{{ url('admin/dashboard') }}"
+                                class="nav-link {{ $secondSegment == 'dashboard' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -73,7 +79,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item {{ $secondSegment == 'users' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-users"></i>
                                 <p>
@@ -83,19 +89,22 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('admin/users/admin') }}" class="nav-link">
+                                    <a href="{{ url('admin/users/admin') }}"
+                                        class="nav-link {{ $thridSegment == 'admin' ? 'active' : '' }}">
                                         <i class="fa fa-user-tie nav-icon"></i>
                                         <p>Admin</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('admin/users/pendaftar') }}" class="nav-link">
+                                    <a href="{{ url('admin/users/pendaftar') }}"
+                                        class="nav-link {{ $thridSegment == 'pendaftar' ? 'active' : '' }}">
                                         <i class="fa fa-user nav-icon"></i>
                                         <p>Pendaftar</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('admin/users/create') }}" class="nav-link">
+                                    <a href="{{ url('admin/users/create') }}"
+                                        class="nav-link {{ $thridSegment == 'create' ? 'active' : '' }}">
                                         <i class="fa fa-user-edit nav-icon"></i>
                                         <p>Tambah User</p>
                                     </a>
@@ -104,7 +113,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('admin/events') }}" class="nav-link">
+                            <a href="{{ url('admin/events') }}"
+                                class="nav-link {{ $secondSegment == 'events' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-calendar"></i>
                                 <p>
                                     Events
@@ -155,12 +165,9 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; {{ date('Y') }} <a href="https://fikom.udb.ac.id/" target="_blank">FIKOM
+                    UDB</a>.</strong> All
+            rights
             reserved.
         </footer>
     </div>

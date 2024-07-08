@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -22,6 +23,25 @@ class AuthController extends Controller
         return view('auth.register', [
             'title' => 'Register',
         ]);
+    }
+
+    public function lupa_password()
+    {
+        return view('auth.lupa_password', [
+            'title' => 'Lupa Password',
+        ]);
+    }
+
+    public function process_lupa_password(Request $request)
+    {
+        $details = [
+            'title' => 'Mail from Laravel',
+            'body' => 'This is for testing email using smtp'
+        ];
+
+        // Mail::to('recipient@example.com')->send(new YourMailable($details));
+
+        return "Email has been sent!";
     }
 
     public function process_login(Request $request)

@@ -113,7 +113,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $title = "Detail User " . $user->nama;
+        $title = "Event Yang Diikuti " . $user->nama;
         return view('admin.users.show', compact('user', 'title'));
     }
 

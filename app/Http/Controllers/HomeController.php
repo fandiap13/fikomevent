@@ -21,6 +21,13 @@ class HomeController extends Controller
         ]);
     }
 
+    public function tentang_kami()
+    {
+        return view("tentang_kami", [
+            'title' => "Tentang Kami",
+        ]);
+    }
+
     public function events(Request $request)
     {
         $search = $request->get('search');
@@ -81,11 +88,14 @@ class HomeController extends Controller
                 ->first();
             if ($event_register) {
                 $event['status_daftar'] = true;
+                $event['id_pendaftaran'] = $event_register->id;
             } else {
                 $event['status_daftar'] = false;
+                $event['id_pendaftaran'] = null;
             }
         } else {
             $event['status_daftar'] = false;
+            $event['id_pendaftaran'] = null;
         }
 
         return response()->json([

@@ -7,9 +7,11 @@ use App\Models\EventRegistrations;
 use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class EventsController extends Controller
 {
@@ -211,12 +213,85 @@ class EventsController extends Controller
     public function simpanstatuspendaftaran(Request $request)
     {
         $id = $request->id;
-        $acc = $request->acc;
+        $aksi = $request->aksi;
 
         $registrasiEvent = EventRegistrations::findOrFail($id);
-        $registrasiEvent->acc = intval($acc);
+        if ($aksi == 'link_sertifikat') {
+            $registrasiEvent->link_sertifikat = $request->link_sertifikat;
+        } else {
+            $acc = $request->acc;
+            $registrasiEvent->acc = intval($acc);
+        }
         $registrasiEvent->save();
 
         return redirect()->back()->with('status', 'success#Status berhasil diperbarui.');
     }
+
+    public function simpansemuastatuspendaftaran(Request $request)
+    {
+        $idArr = $request->id;
+        $status = $request->status;
+
+        try {
+            DB::transaction(function () use ($idArr, $status) {
+                foreach ($idArr as $id) {
+                    $registrasiEvent = EventRegistrations::find($id);
+                    $registrasiEvent->acc = intval($status);
+                    $registrasiEvent->save();
+                }
+            });
+            return response()->json([
+                'status' => true,
+                'message' => 'All updates were successful.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred, transaction rolled back.'
+            ], 500);
+        }
+    }
+
+    public function simpandefaultsertif(Request $request)
+    {
+        $id = $request->id;
+        $link_sertifikat_default = $request->link_sertifikat_default;
+
+        try {
+            $event = Events::findOrFail($id);
+            $event->link_sertifikat_default = $link_sertifikat_default;
+            $event->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Link sertifikat default berhasil disimpan.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred, transaction rolled back.'
+            ], 500);
+        }
+    }
+
+    // public function exportallparticipants()
+    // {
+    //     $filePath = storage_path('app/participants.xlsx');
+    //     $participants = Participant::select('nama', 'tanggal_daftar', 'instansi', 'no_telp', 'status')->get();
+
+    //     $writer = SimpleExcelWriter::create($filePath)
+    //         ->addHeader(['Nama', 'Tanggal Daftar', 'Instansi', 'No Telp', 'Status']);
+
+    //     foreach ($participants as $participant) {
+    //         $writer->addRow([
+    //             $participant->nama,
+    //             $participant->tanggal_daftar,
+    //             $participant->instansi,
+    //             $participant->no_telp,
+    //             $participant->status,
+    //         ]);
+    //     }
+
+    //     return response()->download($filePath)->deleteFileAfterSend(true);
+    // }
 }

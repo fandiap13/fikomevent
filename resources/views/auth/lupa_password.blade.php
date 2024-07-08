@@ -19,7 +19,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ url('auth/login-process') }}" id="form" method="post">
+                <form action="{{ url('auth/lupa-password-process') }}" id="form" method="post">
                     @csrf
                     <div class="form-group">
                         <div class="input-group">
@@ -32,30 +32,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required
-                                minlength="6">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Lupa Password</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
 
-                <p class="mb-0 mt-3">
-                    <a href="{{ url('auth/register') }}" class="text-center">Register a new membership</a>
-                </p>
                 <p class="my-1">
-                    <a href="{{ url('/') }}">Back to home</a>
+                    <a href="{{ url('auth/login') }}">I already have a account</a>
+                </p>
+                <p class="mb-0">
+                    <a href="{{ url('auth/register') }}" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

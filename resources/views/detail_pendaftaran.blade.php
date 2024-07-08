@@ -52,6 +52,11 @@
                             </strong>{{ date('d F Y', strtotime($event->event->created_at)) }}</li>
                         <li class="list-group-item"><strong>Tenggat Waktu:
                             </strong>{{ date('d F Y', strtotime($event->event->waktu_selesai)) }}</li>
+                        <li class="list-group-item"><strong>Status Event: </strong>
+                            {!! $event->jenis_event == 'aktif'
+                                ? '<span class="badge badge-success">AKTIF</span>'
+                                : '<span class="badge badge-danger">TIDAK AKTIF</span>' !!}
+                        </li>
                         <li class="list-group-item"><strong>Jenis Event: </strong>
                             {!! $event->event->jenis_event == 'gratis'
                                 ? '<span class="badge badge-success">GRATIS</span>'
@@ -97,6 +102,17 @@
                                         style="width: 300px; height: 300px; object-fit: contain">
                                 </a>
                             </li>
+                        @endif
+                        @if ($event->link_sertifikat)
+                            <li class="list-group-item"><strong>Link Sertifikat: <br>
+                                </strong><a href="{{ $event->link_sertifikat }}"
+                                    target="_blank">{{ $event->link_sertifikat }}</a></li>
+                        @else
+                            @if ($event->event->link_sertifikat_default)
+                                <li class="list-group-item"><strong>Link Sertifikat: <br>
+                                    </strong><a href="{{ $event->event->link_sertifikat_default }}"
+                                        target="_blank">{{ $event->event->link_sertifikat_default }}</a></li>
+                            @endif
                         @endif
                     </ul>
                 </div>
